@@ -41,11 +41,15 @@ print(load_data_wrapper()[0])
     That's done in the wrapper function ``load_data_wrapper()``, see
     below.
     """
-    f = gzip.open('../data/mnist.pkl.gz', 'rb')
-    u = pickle._Unpickler(f)
+    with gzip.open('../data/mnist.pkl.gz', 'rb') as f:
+        training_data,validation_data,test_data = pickle.load(f, encoding='latin1')
+
+
+    """u = pickle._Unpickler(f)
     u.encoding = 'latin1'
     training_data, validation_data, test_data = u.load()
-    f.close()
+
+    f.close()"""
     return (training_data, validation_data, test_data)
 
 def load_data_wrapper():
